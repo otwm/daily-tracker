@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { Button, Layout, Menu, Row, Col } from 'antd'
+import { Button, Layout, Menu, Row, Radio } from 'antd'
 import 'antd/dist/antd.css';
 
 import moment, { Moment } from 'moment'
-import { last, isNil, path, map } from 'ramda'
+import { last, isNil, path, pipe } from 'ramda'
 
 import TaskBar from './components/TaskBar';
 import './App.css';
@@ -83,8 +83,18 @@ const startOrStopFactory = (tasks: Task[], setTask: Dispatch<SetStateAction<Task
 }
 
 const { Content, Header } = Layout
+
 const App: React.FC = () => {
   const [ tasks, setTask ] = useState<Task[]>([])
+  const [ myState, setMyState ] = useState<string | null>(null)
+
+  const handleActionChange = (value: string | null) => {
+    if (myState === value) {
+      setMyState(null)
+    } else {
+      setMyState(value)
+    }
+  }
   /**
    * 새로운 task를 생성하여 tasks에 등록 한다.
    */
@@ -99,12 +109,25 @@ const App: React.FC = () => {
             <Menu.Item key={1}>Daily</Menu.Item>
           </Menu>
         </Header>
-        <Content>
-          <Row>
-            <Button onClick={() => startOrStopFactory(tasks, setTask)(restType)}
-                    data-test-id="btn-rest">휴식</Button>
-            <Button onClick={() => startOrStopFactory(tasks, setTask)(workType)}
-                    data-test-id="btn-work">work</Button>
+        <Content style={{ padding: 10 }}>
+          <Row justify={'center'} align={'middle'} type={'flex'}>
+            <Button.Group>
+              <Button type={ myState ==='rest' ? 'primary': 'default' }
+                onClick={() => {
+                  handleActionChange('rest');
+                  startOrStopFactory(tasks, setTask)(restType);
+                }}>
+                휴식
+              </Button>
+              <Button
+                type={ myState ==='work' ? 'primary': 'default' }
+                onClick={() => {
+                  handleActionChange('work');
+                  startOrStopFactory(tasks, setTask)(workType)
+                }}>
+                work
+              </Button>
+            </Button.Group>
           </Row>
           <Row>
             <TaskBar tasks={tasks} />
