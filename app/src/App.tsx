@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { Button } from 'antd'
+import { Button, Layout, Menu, Row, Col } from 'antd'
 import 'antd/dist/antd.css';
 
 import moment, { Moment } from 'moment'
@@ -82,6 +82,7 @@ const startOrStopFactory = (tasks: Task[], setTask: Dispatch<SetStateAction<Task
   }
 }
 
+const { Content, Header } = Layout
 const App: React.FC = () => {
   const [ tasks, setTask ] = useState<Task[]>([])
   /**
@@ -89,9 +90,27 @@ const App: React.FC = () => {
    */
   return (
     <div>
-      <Button onClick={() => startOrStopFactory(tasks, setTask)(restType)} data-test-id="btn-rest">휴식</Button>
-      <Button onClick={() => startOrStopFactory(tasks, setTask)(workType)} data-test-id="btn-work">work</Button>
-      <TaskBar tasks={tasks} />
+      <Layout>
+        <Header>
+          <Menu
+            theme="dark"
+            mode="horizontal"
+          >
+            <Menu.Item key={1}>Daily</Menu.Item>
+          </Menu>
+        </Header>
+        <Content>
+          <Row>
+            <Button onClick={() => startOrStopFactory(tasks, setTask)(restType)}
+                    data-test-id="btn-rest">휴식</Button>
+            <Button onClick={() => startOrStopFactory(tasks, setTask)(workType)}
+                    data-test-id="btn-work">work</Button>
+          </Row>
+          <Row>
+            <TaskBar tasks={tasks} />
+          </Row>
+        </Content>
+      </Layout>
     </div>
   );
 }
