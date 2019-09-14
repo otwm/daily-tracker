@@ -11,6 +11,7 @@ import './App.css';
 export type YYYY_MM_DD = string
 export type HH_mm = string
 
+// TODO: color의 위치가 적절한지 검토
 interface TaskType {
   name: string;
   color?: string;

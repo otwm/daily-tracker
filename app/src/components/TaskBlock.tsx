@@ -16,7 +16,7 @@ export const time2Coordinate = (time: HH_mm, widthPerMinutes: number): number =>
   moment.duration(time).asMinutes() * widthPerMinutes
 
 const taskCoordinate = (
-  task: Pick<Task, 'start' | 'end'>,
+  task: Pick<Task, 'start' | 'end' | 'type'>,
   groundInfo: TaskBlockProps['groundInfo']
 ): SVGProps<SVGRectElement> => {
   const start = time2Coordinate(task.start, groundInfo.widthPerMinutes)
@@ -27,9 +27,7 @@ const taskCoordinate = (
     y: groundInfo.start.y,
     width,
     height: 70,
-    stroke: 'red',
-    fill: 'red',
-    strokeWidth: 1,
+    fill: task.type.color,
   }
 }
 

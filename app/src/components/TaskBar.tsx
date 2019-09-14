@@ -1,9 +1,10 @@
-import React, { SVGProps } from 'react';
+import React, { SVGProps, useState } from 'react';
 import { Task, HH_mm } from '../App';
 import moment from 'moment'
-import { range } from 'ramda'
+import { range, last, isNil, isEmpty } from 'ramda'
 import TimeLine from './TimeLine'
 import TaskBlock from './TaskBlock'
+import consola from 'consola'
 import './TaskBar.css'
 
 interface TaskBarProps {
@@ -37,6 +38,8 @@ const groundInfo = (timeIndex:number) => ({
 })
 
 const TaskBar: React.FC<TaskBarProps> = ({ tasks }) => {
+  const [ dummy, setDummy ] = useState(0)
+  const forceUpdate = () => setDummy(dummy + 1)
   const groundInfo4Block = {
     start: {
       x: groundAttr.x as number,
@@ -44,6 +47,19 @@ const TaskBar: React.FC<TaskBarProps> = ({ tasks }) => {
     },
     height: groundAttr.y as number,
     widthPerMinutes: groundWithOffset / 60,
+  }
+  if (!isEmpty(tasks) && isNil(last(tasks).end)) {
+    const left = 60 - parseInt(moment().format('ss'))
+    setTimeout(() => {
+      consola.log('retrieve task bar.')
+      if (isNil(last(tasks).end)) forceUpdate()
+    }, left * 1000)
+  }
+  const newTasks = (): Task[] => {
+    if (isEmpty(tasks)) return []
+    const lastTask = last(tasks)
+    if (last(tasks).end) return tasks
+    return [ ...tasks.slice(0, tasks.length -1), { ...lastTask, end: moment().format('HH:mm') } ]
   }
   return (
     <div>
@@ -56,11 +72,10 @@ const TaskBar: React.FC<TaskBarProps> = ({ tasks }) => {
             />
           )
         }
-        { tasks.map((task, index) => <TaskBlock
+        { newTasks().map((task, index) => <TaskBlock
           task={task} key={index} groundInfo={groundInfo4Block}/>)
         }
       </svg>
-
     </div>
   )
 }
