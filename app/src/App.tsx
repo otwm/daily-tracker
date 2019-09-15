@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import { Button, Layout, Menu, Row, Col, Drawer } from 'antd'
+import { Button, Layout, Menu, Row, Col, Drawer, Table } from 'antd'
 import 'antd/dist/antd.css';
 
 import moment, { Moment } from 'moment'
@@ -7,6 +7,7 @@ import { last, isNil, path, pipe } from 'ramda'
 
 import TaskBar from './components/TaskBar';
 import './App.css';
+import {ColumnProps} from 'antd/lib/table'
 
 export type YYYY_MM_DD = string
 export type HH_mm = string
@@ -17,6 +18,12 @@ interface TaskType {
   color?: string;
 }
 
+export interface WorkEvent {
+  name: string;
+  start: HH_mm;
+  end?: HH_mm;
+}
+
 export interface Task {
   startDay: YYYY_MM_DD;
   endDay?: YYYY_MM_DD;
@@ -24,6 +31,7 @@ export interface Task {
   end?: HH_mm;
   title?: string;
   type: TaskType;
+  workEvent?: WorkEvent;
 }
 
 const oneHour = 60
@@ -84,6 +92,23 @@ const startOrStopFactory = (tasks: Task[], setTask: Dispatch<SetStateAction<Task
 
 const { Content, Header } = Layout
 
+const columns: ColumnProps<WorkEvent>[] = [
+  {
+    title: 'name',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: '',
+    dataIndex: 'delete',
+    key: 'delete',
+    render: () => <a>Delete</a>
+  }
+]
+
+const data: WorkEvent[] = [
+]
+
 const App: React.FC = () => {
   const [ tasks, setTask ] = useState<Task[]>([])
   const [ myState, setMyState ] = useState<string | null>(null)
@@ -102,6 +127,8 @@ const App: React.FC = () => {
       setDetailVisible(true)
     }
   }, [ myState ])
+
+  const addWorkEvent = () => 0
   /**
    * 새로운 task를 생성하여 tasks에 등록 한다.
    */
@@ -147,7 +174,8 @@ const App: React.FC = () => {
             onClose={() => setDetailVisible(false)}
             visible={detailVisible}
           >
-            <p>test</p>
+            <Button onClick={addWorkEvent} type={'primary'}>Add</Button>
+            <Table dataSource={data} columns={columns}/>
           </Drawer>
         </Content>
       </Layout>
