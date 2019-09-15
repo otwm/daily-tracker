@@ -1,12 +1,12 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import { Button, Layout, Menu, Row, Col, Drawer, Table } from 'antd'
+import { Button, Layout, Menu, Row, Col } from 'antd'
 import 'antd/dist/antd.css';
 
 import moment from 'moment'
-import { last, isNil, path, pipe } from 'ramda'
+import { last, isNil, path } from 'ramda'
 
 import TaskBar from './components/TaskBar';
-import {TaskType, Task, WorkEvent} from "./interface/task";
+import {TaskType, Task } from "./interface/task";
 import WorkEventsDrawer from "./components/tracker/WorkEventsDrawer";
 import './App.css';
 
