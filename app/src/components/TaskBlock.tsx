@@ -1,7 +1,8 @@
 import React, { SVGProps } from 'react'
-import { HH_mm, Task } from '../App'
 import moment from 'moment'
 import { Coordinate } from './TimeLine'
+import {Task} from "~/interface/task";
+import {HH_mm} from "~/interface/core";
 
 interface TaskBlockProps {
   task: Task;

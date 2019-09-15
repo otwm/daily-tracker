@@ -1,10 +1,10 @@
 import React, { SVGProps, useState } from 'react';
-import { Task, HH_mm } from '../App';
 import moment from 'moment'
 import { range, last, isNil, isEmpty } from 'ramda'
 import TimeLine from './TimeLine'
 import TaskBlock from './TaskBlock'
 import consola from 'consola'
+import { Task } from '../interface/task'
 import './TaskBar.css'
 
 interface TaskBarProps {

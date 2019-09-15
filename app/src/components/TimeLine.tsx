@@ -1,6 +1,6 @@
 import React, { SVGProps } from 'react';
-import { HH_mm } from '../App';
 import { pipe } from 'ramda';
+import {HH_mm} from "../interface/core";
 
 export interface Coordinate {
   x: number;
