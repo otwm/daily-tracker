@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import { Button, Layout, Menu, Row, Col, Drawer } from 'antd'
 import 'antd/dist/antd.css';
 
@@ -96,6 +96,12 @@ const App: React.FC = () => {
       setMyState(value)
     }
   }
+
+  useEffect(() => {
+    if (myState === 'work') {
+      setDetailVisible(true)
+    }
+  }, [ myState ])
   /**
    * 새로운 task를 생성하여 tasks에 등록 한다.
    */
@@ -138,7 +144,7 @@ const App: React.FC = () => {
           <Drawer
             title={'Detail'}
             placement={'bottom'}
-            onClose={() => 'ok'}
+            onClose={() => setDetailVisible(false)}
             visible={detailVisible}
           >
             <p>test</p>
