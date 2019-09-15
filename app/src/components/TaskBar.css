@@ -1,5 +1,10 @@
+.task-bar-container {
+  overflow: auto;
+}
+
 .task-bar {
-  width: 100%;
-  height: 300px;
+  min-width: 1560px;
+  width: 100vw;
+  height: 15vh;
 }
 

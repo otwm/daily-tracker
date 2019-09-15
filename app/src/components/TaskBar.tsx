@@ -62,19 +62,21 @@ const TaskBar: React.FC<TaskBarProps> = ({ tasks }) => {
     return [ ...tasks.slice(0, tasks.length -1), { ...lastTask, end: moment().format('HH:mm') } ]
   }
   return (
-    <div>
+    <div className={'task-bar-container'}>
       <svg className={'task-bar'}>
-        <rect { ...groundAttr } />
-        { range(0, 25).map(timeIndex =>
-            <TimeLine timeIndex={timeIndex} color={groundColor}
-                      groundInfo={groundInfo(timeIndex)}
-                      key={timeIndex}
-            />
-          )
-        }
-        { newTasks().map((task, index) => <TaskBlock
-          task={task} key={index} groundInfo={groundInfo4Block}/>)
-        }
+        <g>
+          <rect { ...groundAttr } />
+          { range(0, 25).map(timeIndex =>
+              <TimeLine timeIndex={timeIndex} color={groundColor}
+                        groundInfo={groundInfo(timeIndex)}
+                        key={timeIndex}
+              />
+            )
+          }
+          { newTasks().map((task, index) => <TaskBlock
+            task={task} key={index} groundInfo={groundInfo4Block}/>)
+          }
+        </g>
       </svg>
     </div>
   )

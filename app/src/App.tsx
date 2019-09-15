@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { Button, Layout, Menu, Row, Radio } from 'antd'
+import { Button, Layout, Menu, Row, Col, Drawer } from 'antd'
 import 'antd/dist/antd.css';
 
 import moment, { Moment } from 'moment'
@@ -87,6 +87,7 @@ const { Content, Header } = Layout
 const App: React.FC = () => {
   const [ tasks, setTask ] = useState<Task[]>([])
   const [ myState, setMyState ] = useState<string | null>(null)
+  const [ detailVisible, setDetailVisible ] = useState(false)
 
   const handleActionChange = (value: string | null) => {
     if (myState === value) {
@@ -130,8 +131,18 @@ const App: React.FC = () => {
             </Button.Group>
           </Row>
           <Row>
-            <TaskBar tasks={tasks} />
+            <Col span={22}>
+              <TaskBar tasks={tasks} />
+            </Col>
           </Row>
+          <Drawer
+            title={'Detail'}
+            placement={'bottom'}
+            onClose={() => 'ok'}
+            visible={detailVisible}
+          >
+            <p>test</p>
+          </Drawer>
         </Content>
       </Layout>
     </div>
