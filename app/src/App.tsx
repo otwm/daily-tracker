@@ -9,6 +9,7 @@ import TaskBar from './components/TaskBar';
 import {ColumnProps} from 'antd/lib/table'
 import {TaskType, Task, WorkEvent} from "./interface/task";
 import './App.css';
+import WorkEventsDrawer from "./components/tracker/WorkEventsDrawer";
 
 const oneHour = 60
 const oneDay = 24 * oneHour
@@ -144,15 +145,7 @@ const App: React.FC = () => {
               <TaskBar tasks={tasks} />
             </Col>
           </Row>
-          <Drawer
-            title={'Detail'}
-            placement={'bottom'}
-            onClose={() => setDetailVisible(false)}
-            visible={detailVisible}
-          >
-            <Button onClick={addWorkEvent} type={'primary'}>Add</Button>
-            <Table dataSource={data} columns={columns}/>
-          </Drawer>
+          <WorkEventsDrawer />
         </Content>
       </Layout>
     </div>
