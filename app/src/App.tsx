@@ -6,13 +6,9 @@ import moment from 'moment'
 import { last, isNil, path, pipe } from 'ramda'
 
 import TaskBar from './components/TaskBar';
-import {ColumnProps} from 'antd/lib/table'
 import {TaskType, Task, WorkEvent} from "./interface/task";
-import './App.css';
 import WorkEventsDrawer from "./components/tracker/WorkEventsDrawer";
-
-const oneHour = 60
-const oneDay = 24 * oneHour
+import './App.css';
 
 const restType: TaskType = {
   name: 'rest',
@@ -69,27 +65,9 @@ const startOrStopFactory = (tasks: Task[], setTask: Dispatch<SetStateAction<Task
 
 const { Content, Header } = Layout
 
-const columns: ColumnProps<WorkEvent>[] = [
-  {
-    title: 'name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: '',
-    dataIndex: 'delete',
-    key: 'delete',
-    render: () => <a>Delete</a>
-  }
-]
-
-const data: WorkEvent[] = [
-]
-
 const App: React.FC = () => {
   const [ tasks, setTask ] = useState<Task[]>([])
   const [ myState, setMyState ] = useState<string | null>(null)
-  const [ detailVisible, setDetailVisible ] = useState(false)
 
   const handleActionChange = (value: string | null) => {
     if (myState === value) {
@@ -101,11 +79,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (myState === 'work') {
-      setDetailVisible(true)
+      // setDetailVisible(true)
     }
   }, [ myState ])
 
-  const addWorkEvent = () => 0
   /**
    * 새로운 task를 생성하여 tasks에 등록 한다.
    */
