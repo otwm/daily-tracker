@@ -8,11 +8,14 @@
     "@types/react-dom": "16.9.0",
     "antd": "^3.23.1",
     "consola": "^2.10.1",
+    "firebase": "^6.6.1",
     "moment": "^2.24.0",
     "ramda": "^0.26.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-redux": "^7.1.1",
     "react-scripts": "3.1.1",
+    "rxfire": "^3.8.1",
     "rxjs": "^6.5.3",
     "typescript": "3.5.3"
   },
@@ -40,6 +43,7 @@
     "@types/moment": "^2.13.0",
     "@types/node": "^12.7.4",
     "@types/ramda": "^0.26.21",
+    "@types/react-redux": "^7.1.2",
     "@typescript-eslint/eslint-plugin": "^2.1.0"
   }
 }
